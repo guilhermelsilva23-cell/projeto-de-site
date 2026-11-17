@@ -28,3 +28,7 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- Contacts, webhook URL, analytics IDs and feature flags live only in `src/config/site.ts`; colors live as `--cor-*` variables in `src/styles.css`. Why: one place for the client to edit.
+- Lead form validation is shared in `src/lib/lead.ts` (client + server fn). Why: same rules both sides, covered by `src/test/lead.test.ts`.

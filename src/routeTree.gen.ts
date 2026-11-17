@@ -10,33 +10,90 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as AdequacaoNr12IndexRouteImport } from './routes/adequacao-nr-12.index'
+import { Route as AdequacaoNr12DiagnosticoRouteImport } from './routes/adequacao-nr-12.diagnostico'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PoliticaDePrivacidadeRoute = PoliticaDePrivacidadeRouteImport.update({
+  id: '/politica-de-privacidade',
+  path: '/politica-de-privacidade',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdequacaoNr12IndexRoute = AdequacaoNr12IndexRouteImport.update({
+  id: '/adequacao-nr-12/',
+  path: '/adequacao-nr-12/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdequacaoNr12DiagnosticoRoute =
+  AdequacaoNr12DiagnosticoRouteImport.update({
+    id: '/adequacao-nr-12/diagnostico',
+    path: '/adequacao-nr-12/diagnostico',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/adequacao-nr-12/diagnostico': typeof AdequacaoNr12DiagnosticoRoute
+  '/adequacao-nr-12/': typeof AdequacaoNr12IndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/adequacao-nr-12/diagnostico': typeof AdequacaoNr12DiagnosticoRoute
+  '/adequacao-nr-12': typeof AdequacaoNr12IndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/adequacao-nr-12/diagnostico': typeof AdequacaoNr12DiagnosticoRoute
+  '/adequacao-nr-12/': typeof AdequacaoNr12IndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/politica-de-privacidade'
+    | '/sitemap.xml'
+    | '/adequacao-nr-12/diagnostico'
+    | '/adequacao-nr-12/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/politica-de-privacidade'
+    | '/sitemap.xml'
+    | '/adequacao-nr-12/diagnostico'
+    | '/adequacao-nr-12'
+  id:
+    | '__root__'
+    | '/'
+    | '/politica-de-privacidade'
+    | '/sitemap.xml'
+    | '/adequacao-nr-12/diagnostico'
+    | '/adequacao-nr-12/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PoliticaDePrivacidadeRoute: typeof PoliticaDePrivacidadeRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  AdequacaoNr12DiagnosticoRoute: typeof AdequacaoNr12DiagnosticoRoute
+  AdequacaoNr12IndexRoute: typeof AdequacaoNr12IndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +105,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/politica-de-privacidade': {
+      id: '/politica-de-privacidade'
+      path: '/politica-de-privacidade'
+      fullPath: '/politica-de-privacidade'
+      preLoaderRoute: typeof PoliticaDePrivacidadeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/adequacao-nr-12/': {
+      id: '/adequacao-nr-12/'
+      path: '/adequacao-nr-12'
+      fullPath: '/adequacao-nr-12/'
+      preLoaderRoute: typeof AdequacaoNr12IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/adequacao-nr-12/diagnostico': {
+      id: '/adequacao-nr-12/diagnostico'
+      path: '/adequacao-nr-12/diagnostico'
+      fullPath: '/adequacao-nr-12/diagnostico'
+      preLoaderRoute: typeof AdequacaoNr12DiagnosticoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PoliticaDePrivacidadeRoute: PoliticaDePrivacidadeRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  AdequacaoNr12DiagnosticoRoute: AdequacaoNr12DiagnosticoRoute,
+  AdequacaoNr12IndexRoute: AdequacaoNr12IndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

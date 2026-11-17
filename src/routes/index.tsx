@@ -1,23 +1,16 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
-// The home route ships no og:image, so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+// A página principal do projeto é /adequacao-nr-12.
 export const Route = createFileRoute("/")({
-  component: Index,
+  beforeLoad: () => {
+    throw redirect({ to: "/adequacao-nr-12", statusCode: 301 });
+  },
+  head: () => ({
+    meta: [
+      { title: "Titans Soluções de Engenharia" },
+      { name: "description", content: "Adequação NR-12 de máquinas com engenharia — Titans Soluções de Engenharia." },
+      { property: "og:title", content: "Titans Soluções de Engenharia" },
+      { property: "og:description", content: "Adequação NR-12 de máquinas com engenharia." },
+    ],
+  }),
 });
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
