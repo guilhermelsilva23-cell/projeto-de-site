@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Logo } from "@/components/titans/Logo";
 import { Footer } from "@/components/titans/Footer";
 import { Preencher } from "@/components/titans/Preencher";
+import { urlAbs } from "@/config/site";
 
 export const Route = createFileRoute("/politica-de-privacidade")({
   head: () => ({
@@ -10,9 +11,9 @@ export const Route = createFileRoute("/politica-de-privacidade")({
       { name: "description", content: "Como a Titans Soluções de Engenharia trata os dados enviados pelos formulários do site." },
       { property: "og:title", content: "Política de Privacidade | Titans Engenharia" },
       { property: "og:description", content: "Tratamento de dados pessoais conforme a LGPD." },
-      { property: "og:url", content: "/politica-de-privacidade" },
+      { property: "og:url", content: urlAbs("/politica-de-privacidade") },
     ],
-    links: [{ rel: "canonical", href: "/politica-de-privacidade" }],
+    links: [{ rel: "canonical", href: urlAbs("/politica-de-privacidade") }],
   }),
   component: Politica,
 });

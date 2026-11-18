@@ -6,7 +6,7 @@ import { Footer } from "@/components/titans/Footer";
 import { MediaSlot } from "@/components/titans/MediaSlot";
 import { Preencher } from "@/components/titans/Preencher";
 import { btn, SectionHead } from "@/components/titans/Buttons";
-import { SITE } from "@/config/site";
+import { SITE, urlAbs } from "@/config/site";
 import { track } from "@/lib/analytics";
 import { organizationLd, serviceLd, ldScript } from "@/lib/schema";
 import { CARGOS, MAQUINAS, ORIGENS, QUANTIDADES, leadSchema } from "@/lib/lead";
@@ -24,9 +24,9 @@ export const Route = createFileRoute("/adequacao-nr-12/diagnostico")({
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESC },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/adequacao-nr-12/diagnostico" },
+      { property: "og:url", content: urlAbs("/adequacao-nr-12/diagnostico") },
     ],
-    links: [{ rel: "canonical", href: "/adequacao-nr-12/diagnostico" }],
+    links: [{ rel: "canonical", href: urlAbs("/adequacao-nr-12/diagnostico") }],
     scripts: [ldScript(organizationLd), ldScript(serviceLd("Diagnóstico NR-12 de máquinas", DESC))],
   }),
   component: Landing,
@@ -214,7 +214,7 @@ function FormSection() {
               <select {...a("cargo")} defaultValue="" className={inputCls}><option value="" disabled>Selecione</option>{CARGOS.map((c) => <option key={c}>{c}</option>)}</select>
             </Field>
             <Field id="f-empresa" label="Empresa" error={errors["empresa"]}><input {...a("empresa")} autoComplete="organization" className={inputCls} /></Field>
-            <Field id="f-email" label="E-mail corporativo" error={errors["email"]}><input {...a("email")} type="email" autoComplete="email" className={inputCls} /></Field>
+            <Field id="f-email" label="E-mail" error={errors["email"]}><input {...a("email")} type="email" autoComplete="email" className={inputCls} /></Field>
             <Field id="f-telefone" label="Telefone/WhatsApp" error={errors["telefone"]}><input {...a("telefone")} type="tel" autoComplete="tel" placeholder="(11) 99999-9999" className={inputCls} /></Field>
             <Field id="f-maquina" label="Tipo de máquina" error={errors["maquina"]}>
               <select {...a("maquina")} defaultValue="" className={inputCls}><option value="" disabled>Selecione</option>{MAQUINAS.map((c) => <option key={c}>{c}</option>)}</select>

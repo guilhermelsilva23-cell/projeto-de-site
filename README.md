@@ -1,24 +1,39 @@
-# Projeto de Site
+# Site — Titans Soluções de Engenharia
 
-Projeto de site; espere eu mandar a outra parte do prompt
+Site institucional da Titans focado em adequação de máquinas à NR-12, com página de campanha e formulário de diagnóstico.
 
-This project was built with [Lovable](https://lovable.dev).
+## Rotas
 
-## Build with Lovable
+| Rota | Descrição |
+| --- | --- |
+| `/` | Redireciona para `/adequacao-nr-12` |
+| `/adequacao-nr-12` | Página principal (10 seções, indexável) |
+| `/adequacao-nr-12/diagnostico` | Landing de campanha com formulário (noindex) |
+| `/politica-de-privacidade` | Política de privacidade (LGPD) |
+| `/sitemap.xml` | Sitemap das páginas indexáveis |
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/9c846cb2-a827-4a05-ae25-3558708c1992).
+## Configurações
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+- **`src/config/site.ts`** — contatos (WhatsApp, e-mail de RFQ, endereço), URL de destino do formulário, prazo de retorno, `SITE_URL`, IDs de analytics (GA4, Meta Pixel) e o interruptor do bloco de case (`SHOW_CASE`). Campos vazios aparecem no site como etiquetas amarelas `[PREENCHER]`.
+- **`src/styles.css`** — cores do tema (variáveis `--cor-*`), espelhadas em `CORES` no `site.ts`.
 
-## Development
+### SITE_URL e sitemap
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+Quando o domínio oficial estiver definido, preencha `SITE_URL` em `src/config/site.ts` (ex.: `https://www.titans.com.br`). Com isso, canonical, `og:url` e `sitemap.xml` passam a usar o domínio. Depois, edite `public/robots.txt` e descomente a linha `Sitemap:` com o mesmo domínio.
+
+### Formulário de diagnóstico
+
+Cada envio é salvo no banco do projeto (tabela `leads`). Se `URL_FORMULARIO_DESTINO` estiver preenchida, o lead também é encaminhado ao webhook (Make, Zapier, CRM etc.).
+
+## Publicar
+
+No editor Lovable, clique em **Publish** (canto superior direito). As alterações de código só aparecem no endereço público após a publicação.
+
+## Desenvolvimento local
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
 npm i
 npm run dev
 ```
+
+Testes: `npx vitest run`.

@@ -9,7 +9,7 @@ import { Footer } from "@/components/titans/Footer";
 import { MediaSlot } from "@/components/titans/MediaSlot";
 import { Preencher } from "@/components/titans/Preencher";
 import { btn, SectionHead } from "@/components/titans/Buttons";
-import { whatsappUrl, rfqUrl } from "@/config/site";
+import { whatsappUrl, rfqUrl, urlAbs } from "@/config/site";
 import { track } from "@/lib/analytics";
 import { organizationLd, serviceLd, ldScript } from "@/lib/schema";
 
@@ -32,9 +32,9 @@ export const Route = createFileRoute("/adequacao-nr-12/")({
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESC },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/adequacao-nr-12" },
+      { property: "og:url", content: urlAbs("/adequacao-nr-12") },
     ],
-    links: [{ rel: "canonical", href: "/adequacao-nr-12" }],
+    links: [{ rel: "canonical", href: urlAbs("/adequacao-nr-12") }],
     scripts: [
       ldScript(organizationLd),
       ldScript(serviceLd("Adequação NR-12 de máquinas", DESC)),

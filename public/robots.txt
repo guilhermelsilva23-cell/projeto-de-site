@@ -12,3 +12,6 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# Quando SITE_URL estiver preenchido em src/config/site.ts, descomente e ajuste a linha abaixo:
+# Sitemap: https://SEU-DOMINIO/sitemap.xml

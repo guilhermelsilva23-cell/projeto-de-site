@@ -9,6 +9,7 @@ const base = {
 describe("formulário de diagnóstico", () => {
   it("aceita um lead completo", () => expect(leadSchema.safeParse(base).success).toBe(true));
   it("exige consentimento LGPD", () => expect(leadSchema.safeParse({ ...base, consentimento: false }).success).toBe(false));
-  it("recusa e-mail pessoal (exige corporativo)", () => expect(leadSchema.safeParse({ ...base, email: "ana@gmail.com" }).success).toBe(false));
-  it("recusa honeypot preenchido", () => expect(leadSchema.safeParse({ ...base, website: "spam" }).success).toBe(false));
+  it("aceita e-mail gratuito (gmail, hotmail etc.)", () => expect(leadSchema.safeParse({ ...base, email: "ana@gmail.com" }).success).toBe(true));
+  it("recusa e-mail com formato inválido", () => expect(leadSchema.safeParse({ ...base, email: "ana@invalido" }).success).toBe(false));
+  it("não falha a validação quando o honeypot vem preenchido", () => expect(leadSchema.safeParse({ ...base, website: "spam" }).success).toBe(true));
 });
