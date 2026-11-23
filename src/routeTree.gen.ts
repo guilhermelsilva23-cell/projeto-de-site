@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AdequacaoNr12IndexRouteImport } from './routes/adequacao-nr-12.index'
 import { Route as AdequacaoNr12DiagnosticoRouteImport } from './routes/adequacao-nr-12.diagnostico'
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
 const PoliticaDePrivacidadeRoute = PoliticaDePrivacidadeRouteImport.update({
   id: '/politica-de-privacidade',
   path: '/politica-de-privacidade',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -45,6 +51,7 @@ const AdequacaoNr12DiagnosticoRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/adequacao-nr-12/diagnostico': typeof AdequacaoNr12DiagnosticoRoute
   '/adequacao-nr-12/': typeof AdequacaoNr12IndexRoute
@@ -52,6 +59,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/adequacao-nr-12/diagnostico': typeof AdequacaoNr12DiagnosticoRoute
   '/adequacao-nr-12': typeof AdequacaoNr12IndexRoute
@@ -60,6 +68,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/adequacao-nr-12/diagnostico': typeof AdequacaoNr12DiagnosticoRoute
   '/adequacao-nr-12/': typeof AdequacaoNr12IndexRoute
@@ -69,6 +78,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/politica-de-privacidade'
+    | '/robots.txt'
     | '/sitemap.xml'
     | '/adequacao-nr-12/diagnostico'
     | '/adequacao-nr-12/'
@@ -76,6 +86,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/politica-de-privacidade'
+    | '/robots.txt'
     | '/sitemap.xml'
     | '/adequacao-nr-12/diagnostico'
     | '/adequacao-nr-12'
@@ -83,6 +94,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/politica-de-privacidade'
+    | '/robots.txt'
     | '/sitemap.xml'
     | '/adequacao-nr-12/diagnostico'
     | '/adequacao-nr-12/'
@@ -91,6 +103,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PoliticaDePrivacidadeRoute: typeof PoliticaDePrivacidadeRoute
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   AdequacaoNr12DiagnosticoRoute: typeof AdequacaoNr12DiagnosticoRoute
   AdequacaoNr12IndexRoute: typeof AdequacaoNr12IndexRoute
@@ -110,6 +123,13 @@ declare module '@tanstack/react-router' {
       path: '/politica-de-privacidade'
       fullPath: '/politica-de-privacidade'
       preLoaderRoute: typeof PoliticaDePrivacidadeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -139,6 +159,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PoliticaDePrivacidadeRoute: PoliticaDePrivacidadeRoute,
+  RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   AdequacaoNr12DiagnosticoRoute: AdequacaoNr12DiagnosticoRoute,
   AdequacaoNr12IndexRoute: AdequacaoNr12IndexRoute,

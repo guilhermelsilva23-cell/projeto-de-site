@@ -8,6 +8,13 @@
       "when": 1795036562526,
       "tag": "0000_create_leads_table",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1795469643632,
+      "tag": "0001_leads_somente_servidor",
+      "breakpoints": true
     }
   ]
 }

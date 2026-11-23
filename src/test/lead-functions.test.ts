@@ -14,8 +14,22 @@ vi.mock("@tanstack/react-start", () => ({
 }));
 
 const insertMock = vi.fn();
+const singleMock = vi.fn();
+const updateMock = vi.fn();
+const eqMock = vi.fn();
 vi.mock("@/integrations/supabase/client.server", () => ({
-  supabaseAdmin: { from: () => ({ insert: insertMock }) },
+  supabaseAdmin: {
+    from: () => ({
+      insert: (row: unknown) => {
+        insertMock(row);
+        return { select: () => ({ single: singleMock }) };
+      },
+      update: (row: unknown) => {
+        updateMock(row);
+        return { eq: eqMock };
+      },
+    }),
+  },
 }));
 
 const { enviarLead } = await import("@/lib/lead.functions");
@@ -31,7 +45,12 @@ const lead = {
 describe("enviarLead (servidor)", () => {
   beforeEach(() => {
     insertMock.mockReset();
-    insertMock.mockResolvedValue({ error: null });
+    updateMock.mockReset();
+    eqMock.mockReset();
+    eqMock.mockResolvedValue({ error: null });
+    singleMock.mockReset();
+    singleMock.mockResolvedValue({ data: { id: "lead-1" }, error: null });
+    (SITE as { URL_FORMULARIO_DESTINO: string }).URL_FORMULARIO_DESTINO = "";
   });
 
   it("honeypot preenchido: retorna sucesso sem salvar nem encaminhar", async () => {
@@ -57,7 +76,34 @@ describe("enviarLead (servidor)", () => {
   });
 
   it("falha do banco: retorna erro pedindo para falar pelo WhatsApp", async () => {
-    insertMock.mockResolvedValue({ error: { message: "boom" } });
+    singleMock.mockResolvedValue({ data: null, error: { message: "boom" } });
     await expect(enviarLead({ data: lead })).rejects.toThrow("Não foi possível enviar agora. Fale pelo WhatsApp.");
+  });
+
+  it("cria o lead com encaminhado_webhook false", async () => {
+    await enviarLead({ data: lead });
+    expect(insertMock.mock.calls[0]![0]).toMatchObject({ encaminhado_webhook: false });
+  });
+
+  it("webhook com sucesso: atualiza encaminhado_webhook para true", async () => {
+    (SITE as { URL_FORMULARIO_DESTINO: string }).URL_FORMULARIO_DESTINO = "https://hook.test/x";
+    const fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response("ok", { status: 200 }));
+    const res = await enviarLead({ data: lead });
+    expect(res).toEqual({ ok: true });
+    expect(updateMock).toHaveBeenCalledWith({ encaminhado_webhook: true });
+    expect(eqMock).toHaveBeenCalledWith("id", "lead-1");
+    fetchSpy.mockRestore();
+  });
+
+  it("webhook falha: visitante recebe sucesso e lead não é marcado", async () => {
+    (SITE as { URL_FORMULARIO_DESTINO: string }).URL_FORMULARIO_DESTINO = "https://hook.test/x";
+    const fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response("erro", { status: 500 }));
+    const errSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const res = await enviarLead({ data: lead });
+    expect(res).toEqual({ ok: true });
+    expect(updateMock).not.toHaveBeenCalled();
+    expect(errSpy).toHaveBeenCalled();
+    fetchSpy.mockRestore();
+    errSpy.mockRestore();
   });
 });

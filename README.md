@@ -19,7 +19,7 @@ Site institucional da Titans focado em adequação de máquinas à NR-12, com p�
 
 ### SITE_URL e sitemap
 
-Quando o domínio oficial estiver definido, preencha `SITE_URL` em `src/config/site.ts` (ex.: `https://www.titans.com.br`). Com isso, canonical, `og:url` e `sitemap.xml` passam a usar o domínio. Depois, edite `public/robots.txt` e descomente a linha `Sitemap:` com o mesmo domínio.
+Quando o domínio oficial estiver definido, preencha `SITE_URL` em `src/config/site.ts` (ex.: `https://www.titans.com.br`). Com isso, canonical, `og:url` e `sitemap.xml` passam a usar o domínio. Depois, edite `a rota /robots.txt` e descomente a linha `Sitemap:` com o mesmo domínio.
 
 ### Formulário de diagnóstico
 
@@ -27,7 +27,15 @@ Cada envio é salvo no banco do projeto (tabela `leads`). Se `URL_FORMULARIO_DES
 
 ## Publicar
 
-No editor Lovable, clique em **Publish** (canto superior direito). As alterações de código só aparecem no endereço público após a publicação.
+Use a opção de publicação da plataforma onde o projeto está hospedado. As alterações de código só aparecem no endereço público depois de publicadas.
+
+## Onde ver os leads
+
+Todo envio do formulário é salvo na tabela **leads** do banco do projeto (área de Backend/Database). A coluna `encaminhado_webhook` fica `true` só quando o webhook de `URL_FORMULARIO_DESTINO` respondeu com sucesso.
+
+## robots.txt
+
+`/robots.txt` é gerado dinamicamente; com `SITE_URL` preenchido, inclui a linha `Sitemap: {SITE_URL}/sitemap.xml`.
 
 ## Desenvolvimento local
 

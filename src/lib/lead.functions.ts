@@ -19,7 +19,7 @@ export const enviarLead = createServerFn({ method: "POST" })
 
     // Sempre salva o lead no banco do projeto (nada se perde).
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { error } = await supabaseAdmin.from("leads").insert({
+    const { data: salvo, error } = await supabaseAdmin.from("leads").insert({
       nome: data.nome,
       cargo: data.cargo,
       empresa: data.empresa,
@@ -36,10 +36,10 @@ export const enviarLead = createServerFn({ method: "POST" })
       utm_content: data.utm_content,
       utm_term: data.utm_term,
       origem_pagina: payload.origem_pagina,
-      encaminhado_webhook: Boolean(SITE.URL_FORMULARIO_DESTINO),
-    });
-    if (error) {
-      console.error("Falha ao salvar lead no banco:", error.message);
+      encaminhado_webhook: false,
+    }).select("id").single();
+    if (error || !salvo) {
+      console.error("Falha ao salvar lead no banco:", error?.message);
       throw new Error("Não foi possível enviar agora. Fale pelo WhatsApp.");
     }
 
@@ -48,14 +48,24 @@ export const enviarLead = createServerFn({ method: "POST" })
       return { ok: true, aviso: "destino_nao_configurado" as const };
     }
 
-    const res = await fetch(SITE.URL_FORMULARIO_DESTINO, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) {
-      console.error(`Webhook falhou [${res.status}]: ${await res.text()}`);
-      throw new Error("Não foi possível enviar agora. Tente novamente ou fale pelo WhatsApp.");
+    // O lead já está salvo: falha no webhook só vai para o log, o visitante recebe sucesso.
+    try {
+      const res = await fetch(SITE.URL_FORMULARIO_DESTINO, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        console.error(`Webhook falhou [${res.status}]: ${await res.text()}`);
+        return { ok: true };
+      }
+      const { error: upErr } = await supabaseAdmin
+        .from("leads")
+        .update({ encaminhado_webhook: true })
+        .eq("id", salvo.id);
+      if (upErr) console.error("Falha ao marcar encaminhado_webhook:", upErr.message);
+    } catch (e) {
+      console.error("Webhook falhou:", e instanceof Error ? e.message : e);
     }
     // Notificação por e-mail para EMAIL_RFQ: requer domínio de e-mail verificado
     // (não configurado neste projeto). O lead fica salvo no banco e no webhook.

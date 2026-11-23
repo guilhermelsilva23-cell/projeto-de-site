@@ -12,26 +12,9 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { SITE } from "../config/site";
+import { CookieBanner } from "../components/titans/CookieBanner";
 
-// GA4 e Meta Pixel só são carregados quando os IDs estão preenchidos em src/config/site.ts.
-const analyticsScripts = [
-  ...(SITE.GA4_ID
-    ? [
-        { src: `https://www.googletagmanager.com/gtag/js?id=${SITE.GA4_ID}`, async: true },
-        {
-          children: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}window.gtag=gtag;gtag('js',new Date());gtag('config','${SITE.GA4_ID}');`,
-        },
-      ]
-    : []),
-  ...(SITE.META_PIXEL_ID
-    ? [
-        {
-          children: `!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${SITE.META_PIXEL_ID}');fbq('track','PageView');`,
-        },
-      ]
-    : []),
-];
+// GA4 e Meta Pixel são carregados pelo CookieBanner, só depois de "Aceitar".
 
 function NotFoundComponent() {
   return (
@@ -109,7 +92,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
       { name: "theme-color", content: "#0A0A0A" },
     ],
-    scripts: analyticsScripts,
     links: [
       {
         rel: "stylesheet",
@@ -151,6 +133,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+      <CookieBanner />
     </QueryClientProvider>
   );
 }
