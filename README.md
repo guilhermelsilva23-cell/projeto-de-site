@@ -4,22 +4,22 @@ Site institucional da Titans focado em adequação de máquinas à NR-12, com p�
 
 ## Rotas
 
-| Rota | Descrição |
-| --- | --- |
-| `/` | Redireciona para `/adequacao-nr-12` |
-| `/adequacao-nr-12` | Página principal (10 seções, indexável) |
+| Rota                           | Descrição                                    |
+| ------------------------------ | -------------------------------------------- |
+| `/`                            | Redireciona para `/adequacao-nr-12`          |
+| `/adequacao-nr-12`             | Página principal (10 seções, indexável)      |
 | `/adequacao-nr-12/diagnostico` | Landing de campanha com formulário (noindex) |
-| `/politica-de-privacidade` | Política de privacidade (LGPD) |
-| `/sitemap.xml` | Sitemap das páginas indexáveis |
+| `/politica-de-privacidade`     | Política de privacidade (LGPD)               |
+| `/sitemap.xml`                 | Sitemap das páginas indexáveis               |
 
 ## Configurações
 
-- **`src/config/site.ts`** — contatos (WhatsApp, e-mail de RFQ, endereço), URL de destino do formulário, prazo de retorno, `SITE_URL`, IDs de analytics (GA4, Meta Pixel) e o interruptor do bloco de case (`SHOW_CASE`). Campos vazios aparecem no site como etiquetas amarelas `[PREENCHER]`.
+- **`src/config/site.ts`** — contatos (WhatsApp, e-mail de RFQ, endereço), URL de destino do formulário, prazo de retorno, `SITE_URL`, IDs de analytics (GA4, Meta Pixel) e o interruptor do bloco de case (`SHOW_CASE`). Os campos comerciais devem ser preenchidos apenas com dados confirmados pela Titans.
 - **`src/styles.css`** — cores do tema (variáveis `--cor-*`), espelhadas em `CORES` no `site.ts`.
 
 ### SITE_URL e sitemap
 
-Quando o domínio oficial estiver definido, preencha `SITE_URL` em `src/config/site.ts` (ex.: `https://www.titans.com.br`). Com isso, canonical, `og:url` e `sitemap.xml` passam a usar o domínio. Depois, edite `a rota /robots.txt` e descomente a linha `Sitemap:` com o mesmo domínio.
+Quando o domínio oficial estiver definido, preencha `SITE_URL` em `src/config/site.ts` (ex.: `https://www.titans.com.br`). Com isso, canonical, `og:url`, `sitemap.xml` e o `Sitemap:` de `/robots.txt` passam a usar o domínio automaticamente. Não é necessário editar a rota manualmente.
 
 ### Formulário de diagnóstico
 
@@ -27,7 +27,7 @@ Cada envio é salvo no banco do projeto (tabela `leads`). Se `URL_FORMULARIO_DES
 
 ## Publicar
 
-Use a opção de publicação da plataforma onde o projeto está hospedado. As alterações de código só aparecem no endereço público depois de publicadas.
+Antes de publicar, execute `npm run lint`, `npm test` e `npm run build`. Confirme também a migração `drizzle/migrations/0001_leads_somente_servidor.sql` no Supabase, os dados em `src/config/site.ts`, o destino dos leads e a revisão técnica dos textos.
 
 ## Onde ver os leads
 
@@ -45,3 +45,7 @@ npm run dev
 ```
 
 Testes: `npx vitest run`.
+
+## Estado de entrega
+
+O repositório é a fonte oficial do código do site e está consolidado numa única raiz. A implementação técnica está fechada até à etapa 08 (site, formulário, SEO técnico, consentimento, armazenamento de leads e documentação de operação), mas a publicação continua bloqueada até a Titans fornecer contactos, domínio, regra comercial, política institucional aprovada, credenciais técnicas, imagens e autorizações de cases. Consulte `docs/README.md` e `roadmap.md`.

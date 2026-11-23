@@ -53,7 +53,9 @@ export function urlAbs(caminho: string) {
   return SITE.SITE_URL ? `${SITE.SITE_URL.replace(/\/$/, "")}${caminho}` : caminho;
 }
 
-export function whatsappUrl(texto = "Olá, gostaria de falar com a engenharia da Titans sobre NR-12.") {
+export function whatsappUrl(
+  texto = "Olá, gostaria de falar com a engenharia da Titans sobre NR-12.",
+) {
   if (!SITE.WHATSAPP_NUMERO) return "#contato";
   return `https://wa.me/${SITE.WHATSAPP_NUMERO}?text=${encodeURIComponent(texto)}`;
 }
