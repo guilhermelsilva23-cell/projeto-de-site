@@ -25,7 +25,19 @@ export const SITE = {
   /** Analytics: deixe vazio até ter os IDs reais. */
   GA4_ID: "",
   META_PIXEL_ID: "",
-} as const;
+} as {
+  readonly NOME_EMPRESA: string;
+  readonly WHATSAPP_NUMERO: string;
+  readonly EMAIL_RFQ: string;
+  readonly CIDADE_UF: string;
+  readonly ENDERECO: string;
+  readonly URL_FORMULARIO_DESTINO: string;
+  readonly PRAZO_RETORNO: string;
+  readonly SITE_URL: string;
+  readonly SHOW_CASE: boolean;
+  readonly GA4_ID: string;
+  readonly META_PIXEL_ID: string;
+};
 
 /** Cores de referência (espelhadas em src/styles.css). O vermelho é provisório. */
 export const CORES = {
