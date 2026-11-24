@@ -19,7 +19,7 @@ Site institucional da Titans focado em adequação de máquinas à NR-12, com p�
 
 ### SITE_URL e sitemap
 
-Quando o domínio oficial estiver definido, preencha `SITE_URL` em `src/config/site.ts` (ex.: `https://www.titans.com.br`). Com isso, canonical, `og:url`, `sitemap.xml` e o `Sitemap:` de `/robots.txt` passam a usar o domínio automaticamente. Não é necessário editar a rota manualmente.
+Basta preencher `SITE_URL` em `src/config/site.ts` com o domínio oficial (ex.: `https://www.titans.com.br`). Canonical, `og:url`, `sitemap.xml` e o `Sitemap:` de `/robots.txt` passam a usar esse domínio automaticamente; não é necessário editar a rota manualmente.
 
 ### Formulário de diagnóstico
 

@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
+import { SITE } from "@/config/site";
 import { carregarAnalytics, lerEscolha, salvarEscolha, type Escolha } from "@/lib/cookies";
 
 export function CookieBanner() {
   const [aberto, setAberto] = useState(false);
+  const analyticsConfigurado = Boolean(SITE.GA4_ID || SITE.META_PIXEL_ID);
 
   useEffect(() => {
+    if (!analyticsConfigurado) return;
     const e = lerEscolha();
     if (e === "aceito") carregarAnalytics();
     else if (e === null) setAberto(true);
-  }, []);
+  }, [analyticsConfigurado]);
 
-  if (!aberto) return null;
+  if (!analyticsConfigurado || !aberto) return null;
 
   const escolher = (e: Escolha) => {
     salvarEscolha(e);
