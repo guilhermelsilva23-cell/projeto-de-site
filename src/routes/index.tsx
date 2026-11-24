@@ -8,7 +8,10 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Titans Soluções de Engenharia" },
-      { name: "description", content: "Adequação NR-12 de máquinas com engenharia — Titans Soluções de Engenharia." },
+      {
+        name: "description",
+        content: "Adequação NR-12 de máquinas com engenharia — Titans Soluções de Engenharia.",
+      },
       { property: "og:title", content: "Titans Soluções de Engenharia" },
       { property: "og:description", content: "Adequação NR-12 de máquinas com engenharia." },
     ],

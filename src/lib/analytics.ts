@@ -1,6 +1,7 @@
 import { SITE } from "@/config/site";
 
-export type TitansEvent = "form_view" | "form_start" | "form_submit" | "click_whatsapp" | "click_rfq";
+export type TitansEvent =
+  "form_view" | "form_start" | "form_submit" | "click_whatsapp" | "click_rfq";
 
 declare global {
   interface Window {

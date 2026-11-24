@@ -4,6 +4,7 @@ import { HelpCircle, FileX, Ship, Check, CheckCircle2, Loader2 } from "lucide-re
 import { Logo } from "@/components/titans/Logo";
 import { Footer } from "@/components/titans/Footer";
 import { MediaSlot } from "@/components/titans/MediaSlot";
+import { Preencher } from "@/components/titans/Preencher";
 import { btn, SectionHead } from "@/components/titans/Buttons";
 import { SITE, urlAbs } from "@/config/site";
 import { track } from "@/lib/analytics";
@@ -315,8 +316,8 @@ function FormSection() {
           <div role="status" className="border border-ink-line p-8">
             <CheckCircle2 aria-hidden className="size-10 text-primary" />
             <p className="mt-4 text-xl font-semibold">
-              Recebemos a sua solicitação. A equipa da Titans entrará em contacto assim que a
-              operação comercial confirmar o prazo de retorno.
+              Recebemos sua solicitação. A equipe da Titans entrará em contato assim que a operação
+              comercial confirmar o prazo de retorno.
             </p>
           </div>
         ) : (

@@ -316,7 +316,7 @@ function AdequacaoPage() {
               </p>
               <p className="mt-4 text-lg">
                 dos acidentes de trabalho registrados entre 2012 e 2022 envolveram máquinas e
-                equipamentos.
+                equipementos.
               </p>
               <p className="mt-6 text-xs text-ink-muted">
                 Fonte: Observatório de Segurança e Saúde no Trabalho (SmartLab).
@@ -348,7 +348,7 @@ function AdequacaoPage() {
               title="Um fluxo de engenharia, com escopo claro"
             >
               <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-                A Titans estrutura o trabalho desde o diagnóstico até à documentação técnica, com
+                A Titans estrutura o trabalho desde o diagnóstico até a documentação técnica, com
                 projeto, implantação e validação do sistema de segurança de acordo com o escopo
                 aprovado. Você recebe uma visão organizada dos riscos e das prioridades de correção.
               </p>

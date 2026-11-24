@@ -39,26 +39,26 @@ function Politica() {
         </p>
         <div className="mt-10 space-y-8 text-base leading-relaxed">
           <section>
-            <h2 className="text-2xl uppercase">1. Controlador e contacto</h2>
+            <h2 className="text-2xl uppercase">1. Controlador e contato</h2>
             <p className="mt-3">
-              O controlador é a Titans Soluções de Engenharia. O canal de contacto deve ser
+              O controlador é a Titans Soluções de Engenharia. O canal de contato deve ser
               confirmado pela empresa antes da publicação definitiva; enquanto isso, pedidos
               relacionados com privacidade podem ser encaminhados pelo formulário de diagnóstico.
             </p>
           </section>
           <section>
-            <h2 className="text-2xl uppercase">2. Dados recolhidos e finalidade</h2>
+            <h2 className="text-2xl uppercase">2. Dados coletados e finalidade</h2>
             <p className="mt-3">
               O formulário pode recolher nome, cargo, empresa, e-mail, telefone, tipo e origem da
               máquina, quantidade, mensagem, consentimento e parâmetros UTM. Esses dados são usados
-              para responder ao pedido comercial, avaliar o escopo inicial, manter registos de
+              para responder ao pedido comercial, avaliar o escopo inicial, manter registros de
               atendimento e, quando configurado, encaminhar o lead ao webhook operacional.
             </p>
           </section>
           <section>
             <h2 className="text-2xl uppercase">3. Base legal, armazenamento e retenção</h2>
             <p className="mt-3">
-              O envio depende do consentimento do titular para contacto comercial. Os leads são
+              O envio depende do consentimento do titular para contato comercial. Os leads são
               armazenados na tabela operacional do projeto e devem ser mantidos apenas pelo período
               necessário ao atendimento e às obrigações legais, conforme prazo que será definido
               pela Titans na revisão final.
@@ -68,7 +68,7 @@ function Politica() {
             <h2 className="text-2xl uppercase">4. Cookies e medição</h2>
             <p className="mt-3">
               Cookies e ferramentas de analytics opcionais só devem ser ativados após consentimento
-              e quando os respetivos IDs estiverem configurados. Sem IDs configurados, o site não
+              e quando os respectivos IDs estiverem configurados. Sem IDs configurados, o site não
               ativa GA4 nem Meta Pixel.
             </p>
           </section>
@@ -84,7 +84,7 @@ function Politica() {
           <section>
             <h2 className="text-2xl uppercase">6. Revisão</h2>
             <p className="mt-3">
-              Esta é a base publicada com o código até à etapa 08. A versão final deve ser aprovada
+              Esta é a base publicada com o código até a etapa 08. A versão final deve ser aprovada
               pela Titans e revista juridicamente antes de campanhas ou publicação definitiva.
             </p>
           </section>

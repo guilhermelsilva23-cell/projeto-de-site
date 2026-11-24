@@ -19,32 +19,39 @@ export const enviarLead = createServerFn({ method: "POST" })
 
     // Sempre salva o lead no banco do projeto (nada se perde).
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { data: salvo, error } = await supabaseAdmin.from("leads").insert({
-      nome: data.nome,
-      cargo: data.cargo,
-      empresa: data.empresa,
-      email: data.email,
-      email_corporativo: payload.email_corporativo,
-      telefone: data.telefone,
-      maquina: data.maquina,
-      origem: data.origem,
-      quantidade: data.quantidade,
-      mensagem: data.mensagem,
-      utm_source: data.utm_source,
-      utm_medium: data.utm_medium,
-      utm_campaign: data.utm_campaign,
-      utm_content: data.utm_content,
-      utm_term: data.utm_term,
-      origem_pagina: payload.origem_pagina,
-      encaminhado_webhook: false,
-    }).select("id").single();
+    const { data: salvo, error } = await supabaseAdmin
+      .from("leads")
+      .insert({
+        nome: data.nome,
+        cargo: data.cargo,
+        empresa: data.empresa,
+        email: data.email,
+        email_corporativo: payload.email_corporativo,
+        telefone: data.telefone,
+        maquina: data.maquina,
+        origem: data.origem,
+        quantidade: data.quantidade,
+        mensagem: data.mensagem,
+        utm_source: data.utm_source,
+        utm_medium: data.utm_medium,
+        utm_campaign: data.utm_campaign,
+        utm_content: data.utm_content,
+        utm_term: data.utm_term,
+        origem_pagina: payload.origem_pagina,
+        encaminhado_webhook: false,
+      })
+      .select("id")
+      .single();
     if (error || !salvo) {
       console.error("Falha ao salvar lead no banco:", error?.message);
       throw new Error("Não foi possível enviar agora. Fale pelo WhatsApp.");
     }
 
     if (!SITE.URL_FORMULARIO_DESTINO) {
-      console.warn("URL_FORMULARIO_DESTINO não configurada — lead salvo apenas no banco.", payload.email);
+      console.warn(
+        "URL_FORMULARIO_DESTINO não configurada — lead salvo apenas no banco.",
+        payload.email,
+      );
       return { ok: true, aviso: "destino_nao_configurado" as const };
     }
 

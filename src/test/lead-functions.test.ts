@@ -36,10 +36,22 @@ const { enviarLead } = await import("@/lib/lead.functions");
 const { SITE } = await import("@/config/site");
 
 const lead = {
-  nome: "Ana Souza", cargo: "Compras", empresa: "Metal SA", email: "ana@gmail.com",
-  telefone: "(11) 99999-0000", maquina: "Prensa", origem: "Importada", quantidade: "2 a 5",
-  mensagem: "", consentimento: true, website: "",
-  utm_source: "", utm_medium: "", utm_campaign: "", utm_content: "", utm_term: "",
+  nome: "Ana Souza",
+  cargo: "Compras",
+  empresa: "Metal SA",
+  email: "ana@gmail.com",
+  telefone: "(11) 99999-0000",
+  maquina: "Prensa",
+  origem: "Importada",
+  quantidade: "2 a 5",
+  mensagem: "",
+  consentimento: true,
+  website: "",
+  utm_source: "",
+  utm_medium: "",
+  utm_campaign: "",
+  utm_content: "",
+  utm_term: "",
 };
 
 describe("enviarLead (servidor)", () => {
@@ -67,7 +79,10 @@ describe("enviarLead (servidor)", () => {
     const res = await enviarLead({ data: lead });
     expect(res).toEqual({ ok: true, aviso: "destino_nao_configurado" });
     expect(insertMock).toHaveBeenCalledTimes(1);
-    expect(insertMock.mock.calls[0]![0]).toMatchObject({ email: "ana@gmail.com", email_corporativo: false });
+    expect(insertMock.mock.calls[0]![0]).toMatchObject({
+      email: "ana@gmail.com",
+      email_corporativo: false,
+    });
   });
 
   it("marca e-mail corporativo como true para domínio empresarial", async () => {
@@ -77,7 +92,9 @@ describe("enviarLead (servidor)", () => {
 
   it("falha do banco: retorna erro pedindo para falar pelo WhatsApp", async () => {
     singleMock.mockResolvedValue({ data: null, error: { message: "boom" } });
-    await expect(enviarLead({ data: lead })).rejects.toThrow("Não foi possível enviar agora. Fale pelo WhatsApp.");
+    await expect(enviarLead({ data: lead })).rejects.toThrow(
+      "Não foi possível enviar agora. Fale pelo WhatsApp.",
+    );
   });
 
   it("cria o lead com encaminhado_webhook false", async () => {
@@ -87,7 +104,9 @@ describe("enviarLead (servidor)", () => {
 
   it("webhook com sucesso: atualiza encaminhado_webhook para true", async () => {
     (SITE as { URL_FORMULARIO_DESTINO: string }).URL_FORMULARIO_DESTINO = "https://hook.test/x";
-    const fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response("ok", { status: 200 }));
+    const fetchSpy = vi
+      .spyOn(globalThis, "fetch")
+      .mockResolvedValue(new Response("ok", { status: 200 }));
     const res = await enviarLead({ data: lead });
     expect(res).toEqual({ ok: true });
     expect(updateMock).toHaveBeenCalledWith({ encaminhado_webhook: true });
@@ -97,7 +116,9 @@ describe("enviarLead (servidor)", () => {
 
   it("webhook falha: visitante recebe sucesso e lead não é marcado", async () => {
     (SITE as { URL_FORMULARIO_DESTINO: string }).URL_FORMULARIO_DESTINO = "https://hook.test/x";
-    const fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response("erro", { status: 500 }));
+    const fetchSpy = vi
+      .spyOn(globalThis, "fetch")
+      .mockResolvedValue(new Response("erro", { status: 500 }));
     const errSpy = vi.spyOn(console, "error").mockImplementation(() => {});
     const res = await enviarLead({ data: lead });
     expect(res).toEqual({ ok: true });

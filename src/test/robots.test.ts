@@ -9,6 +9,8 @@ describe("robots.txt", () => {
     expect(r).not.toContain("Sitemap:");
   });
   it("com SITE_URL: inclui Sitemap com o domínio", () => {
-    expect(montarRobots("https://titans.com.br/")).toContain("Sitemap: https://titans.com.br/sitemap.xml");
+    expect(montarRobots("https://titans.com.br/")).toContain(
+      "Sitemap: https://titans.com.br/sitemap.xml",
+    );
   });
 });

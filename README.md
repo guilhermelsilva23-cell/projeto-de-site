@@ -48,4 +48,4 @@ Testes: `npx vitest run`.
 
 ## Estado de entrega
 
-O repositório é a fonte oficial do código do site e está consolidado numa única raiz. A implementação técnica está fechada até à etapa 08 (site, formulário, SEO técnico, consentimento, armazenamento de leads e documentação de operação), mas a publicação continua bloqueada até a Titans fornecer contactos, domínio, regra comercial, política institucional aprovada, credenciais técnicas, imagens e autorizações de cases. Consulte `docs/README.md` e `roadmap.md`.
+O repositório é a fonte oficial do código do site e está consolidado numa única raiz. A implementação técnica está fechada até a etapa 08 (site, formulário, SEO técnico, consentimento, armazenamento de leads e documentação de operação), mas a publicação continua bloqueada até a Titans fornecer contatos, domínio, regra comercial, política institucional aprovada, credenciais técnicas, imagens e autorizações de cases. Consulte `roadmap.md`.
